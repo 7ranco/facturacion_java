@@ -1,6 +1,7 @@
 package com.api.facturacion.domain.models;
 
-import com.api.facturacion.domain.dtos.RolDTO;
+import com.api.facturacion.domain.dtos.rolDTOS.RolDTO;
+import com.api.facturacion.domain.dtos.rolDTOS.RolResponseDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.validation.annotation.Validated;
@@ -15,12 +16,17 @@ public class Rol {
     private Long id;
 
     private String rolName;
+    public Rol(){}
 
-    public Rol(RolDTO rolDTO){
-        this.rolName = rolDTO.rolName();
+    public Rol(String rolName){
+        this.rolName = rolName;
     }
 
-    public Rol(){}
+    public Rol(RolResponseDTO rol){
+        this.id = rol.id();
+        this.rolName = rol.rolName();
+    }
+
     public Long getId() {
         return id;
     }

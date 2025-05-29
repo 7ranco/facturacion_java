@@ -1,7 +1,7 @@
 package com.api.facturacion.controller;
 
-import com.api.facturacion.domain.dtos.RolDTO;
-import com.api.facturacion.domain.dtos.RolResponseDTO;
+import com.api.facturacion.domain.dtos.rolDTOS.RolDTO;
+import com.api.facturacion.domain.dtos.rolDTOS.RolResponseDTO;
 import com.api.facturacion.domain.services.RolServices;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +18,12 @@ import java.util.List;
 public class rolController {
 
     @Autowired
-    private RolServices categoryServices;
+    private RolServices rolServices;
     @PostMapping
     public ResponseEntity<?> createRol(@RequestBody @Valid RolDTO rolDTO,
                                        UriComponentsBuilder uriComponentsBuilder){
         try{
-            RolResponseDTO rol = categoryServices.createRol(rolDTO);
+            RolResponseDTO rol = rolServices.createRol(rolDTO);
 
             URI uri = uriComponentsBuilder.path("/rol/{id}")
                     .buildAndExpand(rol.id())
@@ -38,7 +38,7 @@ public class rolController {
     @GetMapping
     public ResponseEntity<?> listRols(){
         try{
-            List<RolResponseDTO> rol = categoryServices.listRoles();
+            List<RolResponseDTO> rol = rolServices.listRoles();
             return ResponseEntity.ok(rol);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e);
@@ -48,7 +48,7 @@ public class rolController {
     @GetMapping("/{id}")
     public ResponseEntity<?> getRol(@PathVariable Long id){
         try{
-            RolResponseDTO rol = categoryServices.getRol(id);
+            RolResponseDTO rol = rolServices.getRol(id);
             return ResponseEntity.ok(rol);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e);
@@ -58,7 +58,7 @@ public class rolController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteRol(@PathVariable Long id){
         try{
-            RolResponseDTO rol = categoryServices.deleteRols(id);
+            RolResponseDTO rol = rolServices.deleteRols(id);
             return ResponseEntity.ok(rol);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e);

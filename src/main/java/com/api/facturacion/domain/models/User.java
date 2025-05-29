@@ -1,5 +1,7 @@
 package com.api.facturacion.domain.models;
 
+import com.api.facturacion.domain.dtos.rolDTOS.RolResponseDTO;
+import com.api.facturacion.domain.dtos.userDTOS.UserDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.validation.annotation.Validated;
@@ -31,6 +33,16 @@ public class User {
 
 
     public User(){}
+
+    public User(UserDTO user, Rol rol, String email, String password) {
+        this.cc = user.cc();
+        this.name = user.name();
+        this.lastname = user.lastname();
+        this.phone = user.phone();
+        this.email = email;
+        this.password = password;
+        this.rol = rol;
+    }
 
     public Long getId() {
         return id;

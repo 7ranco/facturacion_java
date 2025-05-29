@@ -1,7 +1,7 @@
 package com.api.facturacion.domain.services;
 
-import com.api.facturacion.domain.dtos.RolDTO;
-import com.api.facturacion.domain.dtos.RolResponseDTO;
+import com.api.facturacion.domain.dtos.rolDTOS.RolDTO;
+import com.api.facturacion.domain.dtos.rolDTOS.RolResponseDTO;
 import com.api.facturacion.domain.models.Rol;
 import com.api.facturacion.domain.repository.RolRepository;
 import com.api.facturacion.infrastructure.exceptions.rolExceptions.RolExistsException;
@@ -15,25 +15,23 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+
 public class RolServicesImpl implements RolServices {
 
     @Autowired
     private RolRepository rolRepository;
 
+
     @Override
     public RolResponseDTO createRol(@Valid RolDTO rolDTO) throws Exception {
-        Rol rol = getRolByName(rolDTO);
+        String rolName = rolDTO.rolName().toLowerCase();
+        Rol rol = getRolByName(rolName);
         if (rol == null){
-            rol = rolRepository.save(new Rol(rolDTO));
+            rol = rolRepository.save(new Rol(rolName));
             return new RolResponseDTO(rol.getId(), rol.getRolName());
         }else{
             throw new RolExistsException(rol.getRolName());
         }
-    }
-
-    @Override
-    public Rol getRolByName(RolDTO rolDTO) throws Exception {
-        return rolRepository.findByRolName(rolDTO.rolName());
     }
 
     @Override
@@ -45,6 +43,10 @@ public class RolServicesImpl implements RolServices {
         }
         return listRol.stream().map(
                 r -> new RolResponseDTO(r.getId(),r.getRolName())).toList();
+    }
+    @Override
+    public Rol getRolByName(String rolName) throws Exception {
+        return rolRepository.findByRolName(rolName);
     }
 
     @Override

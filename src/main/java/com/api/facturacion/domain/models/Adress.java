@@ -1,5 +1,6 @@
 package com.api.facturacion.domain.models;
 
+import com.api.facturacion.domain.dtos.clientDTOS.AdressDTO;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +10,6 @@ import org.springframework.validation.annotation.Validated;
 @Embeddable
 @Validated
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 public class Adress {
     private String city;
@@ -17,6 +17,16 @@ public class Adress {
     private String street;
     private String complement;
     private String details;
+
+    public Adress() {
+    }
+    public Adress(AdressDTO adress) {
+        this.city = adress.city();
+        this.neighborhood = adress.neighborhood();
+        this.street = adress.street();
+        this.complement = adress.complement();
+        this.details = adress.details();
+    }
 
     public String getCity() {
         return city;

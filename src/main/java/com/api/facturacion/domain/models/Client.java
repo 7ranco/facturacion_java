@@ -1,5 +1,6 @@
 package com.api.facturacion.domain.models;
 
+import com.api.facturacion.domain.dtos.clientDTOS.ClientDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.validation.annotation.Validated;
@@ -18,7 +19,7 @@ public class Client {
 
     private String name;
 
-    private String LastName;
+    private String lastName;
 
     private String email;
 
@@ -28,6 +29,17 @@ public class Client {
     private Adress adress;
 
     public Client(){}
+
+    public Client(ClientDTO clientDTO, String email, Adress adress) {
+        this.cc = clientDTO.cc();
+        this.name = clientDTO.name();
+        this.lastName = clientDTO.lastname();
+        this.email = email;
+        this.phone = clientDTO.phone();
+        this.adress = adress;
+
+    }
+
     public Long getId() {
         return id;
     }
@@ -53,11 +65,11 @@ public class Client {
     }
 
     public String getLastName() {
-        return LastName;
+        return lastName;
     }
 
     public void setLastName(String lastName) {
-        LastName = lastName;
+        lastName = lastName;
     }
 
     public String getEmail() {
