@@ -59,8 +59,13 @@ public class ClientServicesImpl implements ClientServices{
     }
 
     @Override
+    public Client getClientEntity(Long cc) throws Exception {
+        return clientRepository.findByCc(cc).orElseThrow(() -> new ClientNotExistsException(cc));
+    }
+
+    @Override
     public ClientResponseDTO getClient(Long cc) throws Exception {
-        Client client = clientRepository.findByCc(cc).orElseThrow(() -> new ClientNotExistsException(cc));
+        Client client =getClientEntity(cc);
 
         return new ClientResponseDTO(client.getId(), client.getCc(), client.getName(),client.getLastName(),
                 client.getEmail(), client.getPhone(), new AdressDTO(client.getAdress().getCity(),
@@ -74,7 +79,7 @@ public class ClientServicesImpl implements ClientServices{
         try{
             ClientResponseDTO client = getClient(cc);
             clientRepository.deleteByCc(cc);
-            return  client;
+            return client;
         }catch (EmptyResultDataAccessException e){
             throw new ClientNotExistsException(cc);
         }

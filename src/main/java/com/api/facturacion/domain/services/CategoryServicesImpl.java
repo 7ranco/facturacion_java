@@ -48,10 +48,15 @@ public class CategoryServicesImpl implements CategoryServices {
     }
     @Override
     public CategoryResponseDTO getCategory(Long id) throws Exception {
-        Category category = categoryRepository.findById(id).orElseThrow(() -> new CategoryNotExistsException(id));
-
+        Category category = getCategoryEntity(id);
         return new CategoryResponseDTO(category.getId(), category.getCategoryName());
     }
+
+    @Override
+    public Category getCategoryEntity(Long id) throws Exception {
+        return categoryRepository.findById(id).orElseThrow(() -> new CategoryNotExistsException(id));
+    }
+
     @Override
     public CategoryResponseDTO deleteCategory(Long id) throws Exception {
         try {

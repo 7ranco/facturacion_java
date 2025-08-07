@@ -51,9 +51,14 @@ public class RolServicesImpl implements RolServices {
 
     @Override
     public RolResponseDTO getRol(Long id) throws Exception {
-        Rol rol = rolRepository.findById(id).orElseThrow(() -> new RolNotExistsException(id));
+        Rol rol = getRolEntity(id);
 
         return new RolResponseDTO(rol.getId(), rol.getRolName());
+    }
+
+    @Override
+    public Rol getRolEntity(Long id) throws Exception {
+        return rolRepository.findById(id).orElseThrow(() -> new RolNotExistsException(id));
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.api.facturacion.domain.models;
 
+import com.api.facturacion.domain.dtos.invoiceDTOS.InvoiceDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.validation.annotation.Validated;
@@ -36,6 +37,12 @@ public class Invoice {
 
     public Invoice(){
 
+    }
+
+    public Invoice(User user, Client client) {
+        this.user = user;
+        this.client = client;
+        this.paid = false;
     }
 
     public Long getId() {

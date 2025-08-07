@@ -1,5 +1,6 @@
 package com.api.facturacion.domain.services;
 
+import com.api.facturacion.domain.dtos.loginDTOS.LoginDTO;
 import com.api.facturacion.domain.dtos.rolDTOS.RolResponseDTO;
 import com.api.facturacion.domain.dtos.userDTOS.UserResponseDTO;
 import com.api.facturacion.domain.models.User;
@@ -22,16 +23,16 @@ public class LoginServicesImpl implements LoginServices{
 
 
     @Override
-    public UserResponseDTO validateUser(String email, String password) throws Exception {
-        Optional<User> loginUser = userRepository.findByEmail(email);
+    public UserResponseDTO validateUser(LoginDTO loginDTO) throws Exception {
+        Optional<User> loginUser = userRepository.findByEmail(loginDTO.email());
 
         if (loginUser.isEmpty()) {
-            throw new EmailUserExistsException(email);
+            throw new EmailUserExistsException(loginDTO.email());
         }
 
         User user = loginUser.get();
 
-        if (passwordServices.ValidatePasswords(password, user.getPassword())) {
+        if (passwordServices.ValidatePasswords(loginDTO.password(), user.getPassword())) {
             return new UserResponseDTO(
                     user.getId(),
                     user.getCc(),

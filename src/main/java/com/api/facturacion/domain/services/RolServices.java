@@ -15,6 +15,7 @@ public interface RolServices {
     List<RolResponseDTO> listRoles() throws Exception;
 
     RolResponseDTO getRol(Long id) throws Exception;
+    Rol getRolEntity(Long id) throws Exception;
 
     RolResponseDTO deleteRols(Long id) throws Exception;
 }

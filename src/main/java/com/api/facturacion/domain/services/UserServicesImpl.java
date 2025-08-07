@@ -67,10 +67,15 @@ public class UserServicesImpl implements UserServices{
 
     @Override
     public UserResponseDTO getUser(Long cc) throws Exception {
-        User user = userRepository.findByCc(cc).orElseThrow(() -> new UserNotExistException(cc));
+        User user = getUserEntity(cc);
 
         return new UserResponseDTO(user.getId(), user.getCc(), user.getName(), user.getLastname(), user.getPhone(),
                 user.getEmail(), user.getPassword(), new RolResponseDTO(user.getRol().getId(), user.getRol().getRolName()));
+    }
+
+    @Override
+    public User getUserEntity(Long cc) throws Exception {
+        return userRepository.findByCc(cc).orElseThrow(() -> new UserNotExistException(cc));
     }
 
     @Override

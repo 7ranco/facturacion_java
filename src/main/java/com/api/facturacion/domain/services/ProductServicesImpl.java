@@ -63,10 +63,15 @@ public class ProductServicesImpl implements ProductServices{
 
     @Override
     public ProductResponseDTO getProduct(Long code) throws Exception {
-        Product product = productRepository.findByProductCode(code).orElseThrow(() -> new ProductExistsException(code));
+        Product product = getProductEntity(code);
 
         return new ProductResponseDTO(product.getId(), product.getProductCode(), product.getProductName(),
                 product.getDescription(), product.getStock(), product.getUnitPrice(), new CategoryResponseDTO(product.getCategory().getId(), product.getCategory().getCategoryName()));
+    }
+
+    @Override
+    public Product getProductEntity(Long code) throws Exception {
+        return productRepository.findByProductCode(code).orElseThrow(() -> new ProductExistsException(code));
     }
 
     @Override

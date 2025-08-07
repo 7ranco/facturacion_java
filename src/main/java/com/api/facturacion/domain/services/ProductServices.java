@@ -2,6 +2,7 @@ package com.api.facturacion.domain.services;
 
 import com.api.facturacion.domain.dtos.productDTOS.ProductDTO;
 import com.api.facturacion.domain.dtos.productDTOS.ProductResponseDTO;
+import com.api.facturacion.domain.models.Product;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ public interface ProductServices {
     List<ProductResponseDTO> listProducts() throws Exception;
 
     ProductResponseDTO getProduct(Long code) throws Exception;
+    Product getProductEntity(Long code) throws Exception;
 
     ProductResponseDTO deleteProduct(Long id) throws Exception;
 }

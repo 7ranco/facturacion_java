@@ -1,6 +1,7 @@
 package com.api.facturacion.domain.models;
 
 import com.api.facturacion.domain.dtos.clientDTOS.ClientDTO;
+import com.api.facturacion.domain.dtos.clientDTOS.ClientResponseDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.validation.annotation.Validated;
@@ -38,6 +39,16 @@ public class Client {
         this.phone = clientDTO.phone();
         this.adress = adress;
 
+    }
+
+    public Client(ClientResponseDTO client) {
+        this.id = client.id();
+        this.cc = client.cc();
+        this.name = client.name();
+        this.lastName = client.lastname();
+        this.email = client.email();
+        this.phone = client.phone();
+        this.adress = new Adress(client.adress());
     }
 
     public Long getId() {

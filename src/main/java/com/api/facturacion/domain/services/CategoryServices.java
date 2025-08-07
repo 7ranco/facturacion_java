@@ -11,6 +11,8 @@ public interface CategoryServices {
     Category getCategoryByName(String name) throws Exception;
     List<CategoryResponseDTO> listCategories() throws Exception;
     CategoryResponseDTO getCategory(Long id) throws Exception;
+
+    Category getCategoryEntity(Long id) throws Exception;
     CategoryResponseDTO deleteCategory(Long id) throws Exception;
 
 }
